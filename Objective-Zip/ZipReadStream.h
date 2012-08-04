@@ -45,7 +45,7 @@
 
 - (id) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip;
 
-- (NSData *)readDataOfLength:(NSUInteger)length;
+- (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer;
 - (void) finishedReading;
 
 @end
