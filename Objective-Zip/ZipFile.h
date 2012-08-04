@@ -64,6 +64,7 @@ typedef enum {
 }
 
 - (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode;
+- (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode errorReason:(NSString **)reason;
 
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel;
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel;

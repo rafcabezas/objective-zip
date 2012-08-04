@@ -43,6 +43,49 @@
 @implementation ZipFile
 
 
+- (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode errorReason:(NSString **)reason
+{
+    if (self= [super init]) {
+        _fileName= [fileName retain];
+        _mode= mode;
+        
+        *reason = nil;
+        
+        switch (mode) {
+            case ZipFileModeUnzip:
+                _unzFile= unzOpen([_fileName cStringUsingEncoding:NSUTF8StringEncoding]);
+                if (_unzFile == NULL) {
+                    *reason = [NSString stringWithFormat:@"Can't open '%@'", _fileName];
+                    //@throw [[[ZipException alloc] initWithReason:reason] autorelease];
+                }
+                break;
+                
+            case ZipFileModeCreate:
+                _zipFile= zipOpen([_fileName cStringUsingEncoding:NSUTF8StringEncoding], APPEND_STATUS_CREATE);
+                if (_zipFile == NULL) {
+                    *reason= [NSString stringWithFormat:@"Can't open '%@'", _fileName];
+                    //@throw [[[ZipException alloc] initWithReason:reason] autorelease];
+                }
+                break;
+                
+            case ZipFileModeAppend:
+                _zipFile= zipOpen([_fileName cStringUsingEncoding:NSUTF8StringEncoding], APPEND_STATUS_ADDINZIP);
+                if (_zipFile == NULL) {
+                    *reason= [NSString stringWithFormat:@"Can't open '%@'", _fileName];
+                    //@throw [[[ZipException alloc] initWithReason:reason] autorelease];
+                }
+                break;
+                
+            default: {
+                *reason= [NSString stringWithFormat:@"Unknown mode %d", _mode];
+                //@throw [[[ZipException alloc] initWithReason:reason] autorelease];
+            }
+        }
+    }
+    
+    return self;
+}
+
 - (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode {
     if (self= [super init]) {
         _fileName= [fileName retain];
