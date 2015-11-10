@@ -36,7 +36,7 @@
 
 @implementation ZipException
 
-- (id) initWithReason:(NSString *)reason {
+- (instancetype) initWithReason:(NSString *)reason {
 	if ((self= [super initWithName:@"ZipException" reason:reason userInfo:nil])) {
 		_error= 0;
 	}
@@ -44,7 +44,7 @@
 	return self;
 }
 
-- (id) initWithError:(NSInteger)error reason:(NSString *)reason {
+- (instancetype) initWithError:(NSInteger)error reason:(NSString *)reason {
 	if ((self= [super initWithName:@"ZipException" reason:reason userInfo:nil])) {
 		_error= error;
 	}

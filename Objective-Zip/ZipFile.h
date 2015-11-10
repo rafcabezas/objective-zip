@@ -37,18 +37,18 @@
 #include "unzip.h"
 
 
-typedef enum {
+typedef NS_ENUM(unsigned int, ZipFileMode) {
     ZipFileModeUnzip,
     ZipFileModeCreate,
     ZipFileModeAppend
-} ZipFileMode;
+};
 
-typedef enum {
+typedef NS_ENUM(int, ZipCompressionLevel) {
     ZipCompressionLevelDefault= -1,
     ZipCompressionLevelNone= 0,
     ZipCompressionLevelFastest= 1,
     ZipCompressionLevelBest= 9
-} ZipCompressionLevel;
+};
 
 @class ZipReadStream;
 @class ZipWriteStream;
@@ -63,24 +63,24 @@ typedef enum {
     unzFile _unzFile;
 }
 
-- (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode;
-- (id) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode errorReason:(NSString **)reason;
+- (instancetype) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithFileName:(NSString *)fileName mode:(ZipFileMode)mode errorReason:(NSString **)reason NS_DESIGNATED_INITIALIZER;
 
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip compressionLevel:(ZipCompressionLevel)compressionLevel;
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel;
 - (ZipWriteStream *) writeFileInZipWithName:(NSString *)fileNameInZip fileDate:(NSDate *)fileDate compressionLevel:(ZipCompressionLevel)compressionLevel password:(NSString *)password crc32:(NSUInteger)crc32;
 
-- (NSString*) fileName;
-- (NSUInteger) numFilesInZip;
-- (NSArray *) listFileInZipInfos;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *fileName;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numFilesInZip;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *listFileInZipInfos;
 
 - (void) goToFirstFileInZip;
-- (BOOL) goToNextFileInZip;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL goToNextFileInZip;
 - (BOOL) locateFileInZip:(NSString *)fileNameInZip;
 
-- (FileInZipInfo *) getCurrentFileInZipInfo;
+@property (NS_NONATOMIC_IOSONLY, getter=getCurrentFileInZipInfo, readonly, strong) FileInZipInfo *currentFileInZipInfo;
 
-- (ZipReadStream *) readCurrentFileInZip;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) ZipReadStream *readCurrentFileInZip;
 - (ZipReadStream *) readCurrentFileInZipWithPassword:(NSString *)password;
 
 - (void) close;

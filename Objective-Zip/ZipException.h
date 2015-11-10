@@ -40,8 +40,8 @@
 	NSInteger _error;
 }
 
-- (id) initWithReason:(NSString *)reason;
-- (id) initWithError:(NSInteger)error reason:(NSString *)reason;
+- (instancetype) initWithReason:(NSString *)reason NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithError:(NSInteger)error reason:(NSString *)reason NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, readonly) NSInteger error;
 

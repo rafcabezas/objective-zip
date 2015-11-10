@@ -43,7 +43,7 @@
 	unzFile _unzFile;
 }
 
-- (id) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip;
+- (instancetype) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip NS_DESIGNATED_INITIALIZER;
 
 - (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer;
 - (void) finishedReading;

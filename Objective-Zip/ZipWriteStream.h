@@ -43,7 +43,7 @@
 	zipFile _zipFile;
 }
 
-- (id) initWithZipFileStruct:(zipFile)zipFile fileNameInZip:(NSString *)fileNameInZip;
+- (instancetype) initWithZipFileStruct:(zipFile)zipFile fileNameInZip:(NSString *)fileNameInZip NS_DESIGNATED_INITIALIZER;
 
 - (void) writeData:(NSData *)data;
 - (void) finishedWriting;

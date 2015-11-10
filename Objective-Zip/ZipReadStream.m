@@ -40,7 +40,7 @@
 @implementation ZipReadStream
 
 
-- (id) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip {
+- (instancetype) initWithUnzFileStruct:(unzFile)unzFile fileNameInZip:(NSString *)fileNameInZip {
     if (self= [super init]) {
         _unzFile= unzFile;
         _fileNameInZip= fileNameInZip;
@@ -50,7 +50,7 @@
 }
 
 - (NSUInteger) readDataWithBuffer:(NSMutableData *)buffer {
-    int err= unzReadCurrentFile(_unzFile, [buffer mutableBytes], [buffer length]);
+    int err= unzReadCurrentFile(_unzFile, buffer.mutableBytes, buffer.length);
     if (err < 0) {
         NSString *reason= [NSString stringWithFormat:@"Error in reading '%@' in the zipfile", _fileNameInZip];
         @throw [[[ZipException alloc] initWithError:err reason:reason] autorelease];
